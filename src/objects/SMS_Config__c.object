@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Standard Settings for SMS Functionality (e.g. email to chatter and  sms chatter group)</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Callback_URL__c</fullName>
+        <externalId>false</externalId>
+        <label>Callback URL</label>
+        <required>false</required>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Email_to_Chatter_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Email to Chatter Address</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_Group_id__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Group Id of Chatter Group used to notify agents of new message</inlineHelpText>
+        <label>SMS Group Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_Info_Group_Id__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>New SMS with INFO as request get put in this group</inlineHelpText>
+        <label>SMS Info Group Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_Update_Group_Id__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Group Id that updates to existing cases get posted in</inlineHelpText>
+        <label>SMS Update Group Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_User_Id__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Id of Chatter User that appears for auto-updates in Chatter Feed. Note - the context user for the email to chatter service MUST have update system fields for chatter permission</inlineHelpText>
+        <label>SMS User Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Send_Default_Responses__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>When checked, system will look for default responses and send auto replies</inlineHelpText>
+        <label>Send Default Responses</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>SMS Config</label>
+</CustomObject>

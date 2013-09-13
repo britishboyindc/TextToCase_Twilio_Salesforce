@@ -1,0 +1,40 @@
+<apex:page standardController="Case" extensions="CaseSMSFeedUpdateController" >
+<apex:sectionHeader title="{!case.Subject}" subtitle="Update Case Feed"/>
+<apex:form >
+<apex:outputPanel rendered="false">
+<apex:outputField value="{!case.SMS_Feed_Id__c}"/>
+</apex:outputPanel>
+
+<script>
+function reloadparent() {
+      window.top.location='/{!case.id}';
+}
+</script>
+
+<apex:pageBlock >
+<apex:pageBlockButtons >
+<apex:commandButton action="{!updateFeed}" value="Update Feed" oncomplete="reloadparent();"/>
+</apex:pageBlockButtons>
+
+<apex:pageBlockTable id="casecomments" value="{!casefeeddata}" var="cf">
+<apex:column >
+<apex:commandLink action="{!moveCommentUp}" value="Move Up" reRender="casecomments" rendered="{!cf.iOrder > 1}">
+<apex:param name="iCommentUp" value="{!cf.iOrder}" assignTo="{!iCommentUp}"/>
+</apex:commandLink>
+</apex:column>
+
+<apex:column >
+<apex:commandLink action="{!mergeCommentUp}" value="Merge into Above" reRender="casecomments" rendered="{!cf.iOrder > 1}">
+<apex:param name="iCommentUp" value="{!cf.iOrder}" assignTo="{!iCommentUp}"/>
+</apex:commandLink>
+</apex:column>
+
+
+<apex:column value="{!cf.iOrder}"/>
+
+<apex:column value="{!cf.Comment}"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

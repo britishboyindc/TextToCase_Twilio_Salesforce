@@ -1,0 +1,102 @@
+<apex:page id="smsfromcase" standardController="Case" extensions="CaseSMSExtension">
+
+<apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"/>
+  <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" />
+  <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" />
+
+
+<script type="text/javascript">
+       var j$ = jQuery.noConflict();
+      
+ 
+       j$(document).ready(function(){
+           j$("#accordioncc").accordion({ 
+           autoHeight: false, 
+           collapsible: true,
+           icons:false });
+      
+        });
+ 
+function reloadparent() {
+      window.top.location='/{!case.id}';
+}
+       
+ </script>  
+ <style>
+ 
+  h1{
+    display: block;
+    }
+ </style>
+
+<apex:pageMessages />
+
+<apex:form id="smsform">
+<apex:outputField value="{!case.SMS_Feed_Id__c}" rendered="FALSE"/>
+
+<apex:pageBlock id="newsmsmessages">
+<apex:pageBlockButtons >
+<apex:commandButton action="{!sendsms}" value="Send SMS" oncomplete="reloadparent();"/>
+
+</apex:pageBlockButtons>
+
+<apex:pageBlockSection id="smspbs" columns="1" >
+<apex:outputField value="{!Case.OwnerId}"/>
+<apex:outputField value="{!Case.ContactId}"/>
+<apex:outputField value="{!Case.Contact.MobilePhone}"/>
+<apex:outputField value="{!case.SMS_To_Number__c}"/>
+
+<apex:pageBlockSectionItem id="smsfromselection">
+
+<apex:outputLabel value="From Number"/>
+  <apex:selectList size="1" value="{!fromNumber}">
+    <apex:selectOptions value="{!sNumbers}"/>
+  </apex:selectList>
+</apex:pageBlockSectionItem>
+
+
+
+<apex:pageBlockSectionItem id="smspbsitem">
+<apex:outputLabel id="MessageLabel" value="Message"/>
+<apex:inputTextarea id="smsmsg" onkeyup="checklength();" style="height:100px; width:200px;" value="{!smsMessage}"/>
+</apex:pageBlockSectionItem>
+
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<div id="accordioncc">
+
+<apex:repeat id="catrepeat" value="{!SampleResponseCategories}"  var="srcats">
+<h1><b><a href="#">
+<apex:outputText value="{!srcats}"/>
+</a></b></h1>
+
+<div style="border:0px">
+<apex:repeat id="responses" value="{!sampleresponsemap[srcats]}" var="sresp">
+<apex:panelgrid columns="2">
+<apex:commandLink title="{!sresp.Comment__c}" action="{!setsms}" value="Select" id="theCommandLink" reRender="newsmsmessages" oncomplete="checklength();">
+<apex:param name="msgid" value="{!sresp.name}" />
+</apex:commandLink>
+<apex:outputText value="{!sresp.Message__c}"/>
+</apex:panelgrid>
+</apex:repeat>
+</div>
+
+</apex:repeat>
+</div>
+
+
+
+</apex:form>
+
+<script>
+function checklength() {
+var smsMessageField = document.getElementById('{!$Component.smsfromcase:smsform:newsmsmessages:smspbs:smspbsitem:smsmsg}');
+var smsMessageFieldLength = smsMessageField.textLength;
+var smsLabel = document.getElementById('{!$Component.smsfromcase:smsform:newsmsmessages:smspbs:smspbsitem:MessageLabel}');
+smsLabel.innerHTML = 'Message:' + smsMessageFieldLength;
+
+}
+</script>
+
+</apex:page>
