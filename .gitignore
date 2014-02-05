@@ -2,3 +2,6 @@
 .settings
 salesforce.schema
 Referenced Packages
+.DS_Store
+Twilio Publishing Org.sublime-project
+config/
